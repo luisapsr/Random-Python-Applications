@@ -79,6 +79,10 @@ data = data[["text", "emotion"]].dropna()
 
 print(f"✅ Dataset preparado: {len(data)} linhas e colunas {list(data.columns)}")
 
+# 🔹 Reduzir o dataset para teste (treino rápido)
+data = data.sample(5000, random_state=42)
+print(f"⚡ Dataset reduzido para {len(data)} linhas para treino rápido.")
+
 # Mantém apenas as 5 emoções principais
 emoes = ["joy", "sadness", "anger", "fear", "neutral"]
 data = data[data["emotion"].isin(emoes)]
