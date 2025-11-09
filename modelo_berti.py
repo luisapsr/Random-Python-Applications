@@ -56,6 +56,29 @@ print(f"Colunas: {list(data.columns)}")
 print(f"✅ Dataset carregado com {len(data)} linhas.")
 print(f"Colunas: {list(data.columns)}")
 
+# ----------------------------------------------------
+# Ajusta colunas do dataset e prepara emoções
+# ----------------------------------------------------
+# Detecta automaticamente as colunas de emoção (são binárias)
+emotion_cols = [
+    'admiration', 'amusement', 'anger', 'annoyance', 'approval', 'caring', 
+    'confusion', 'curiosity', 'desire', 'disappointment', 'disapproval', 
+    'disgust', 'embarrassment', 'excitement', 'fear', 'gratitude', 'grief', 
+    'joy', 'love', 'nervousness', 'optimism', 'pride', 'realization', 
+    'relief', 'remorse', 'sadness', 'surprise', 'neutral'
+]
+
+# Garante que só usa as que realmente existem no CSV
+emotion_cols = [c for c in emotion_cols if c in data.columns]
+
+# Cria a coluna "emotion" pegando a emoção dominante por linha
+data["emotion"] = data[emotion_cols].idxmax(axis=1)
+
+# Mantém apenas as colunas necessárias
+data = data[["text", "emotion"]].dropna()
+
+print(f"✅ Dataset preparado: {len(data)} linhas e colunas {list(data.columns)}")
+
 # Mantém apenas as 5 emoções principais
 emoes = ["joy", "sadness", "anger", "fear", "neutral"]
 data = data[data["emotion"].isin(emoes)]
