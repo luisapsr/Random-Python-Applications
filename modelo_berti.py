@@ -102,7 +102,7 @@ print("🎯 Emoções selecionadas:", dataset_global["sentimento"].unique())
 # ----------------------------------------------------
 MODEL_NAME = 'neuralmind/bert-base-portuguese-cased'
 BATCH_SIZE = 8
-EPOCHS = 4
+EPOCHS = 1
 MAX_LEN = 128
 
 
