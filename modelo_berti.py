@@ -265,7 +265,7 @@ class ModeloSentimentosBERT:
 # ----------------------------------------------------
 def main():
     print("🚀 Script de treino iniciado!")
-    modelo = ModeloSentimentosBERT(num_labels=4)
+    modelo = ModeloSentimentosBERT(num_labels=5)
     modelo.treinar(dataset_global)
 
     testes = [
