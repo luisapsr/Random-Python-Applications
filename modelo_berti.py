@@ -31,7 +31,6 @@ for file in dataset_dir.glob("*"):
 
 # Força o script a parar aqui só pra inspeção
 import sys
-sys.exit("🛑 Verifique o nome do CSV acima e me diga qual aparece!")
 
 # ✅ Adicione daqui
 from pathlib import Path
