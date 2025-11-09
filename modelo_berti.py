@@ -22,8 +22,37 @@ from transformers import (
 print("📦 Baixando dataset do Kaggle (GoEmotions PT-BR)...")
 path = kagglehub.dataset_download("antoniomenezes/go-emotions-ptbr")
 
-dataset_path = os.path.join(path, "goemotions_ptbr_train.csv")
-data = pd.read_csv(dataset_path)
+from pathlib import Path
+
+dataset_dir = Path(path)
+print("\n📂 Arquivos encontrados no dataset:")
+for file in dataset_dir.glob("*"):
+    print("  -", file.name)
+
+# Força o script a parar aqui só pra inspeção
+import sys
+sys.exit("🛑 Verifique o nome do CSV acima e me diga qual aparece!")
+
+# ✅ Adicione daqui
+from pathlib import Path
+dataset_dir = Path(path)
+
+print("📂 Arquivos encontrados no dataset:")
+for file in dataset_dir.glob("*"):
+    print("  -", file.name)
+
+# Junta todos os CSVs do dataset em um só DataFrame
+csv_files = list(dataset_dir.glob("*.csv"))
+if not csv_files:
+    raise FileNotFoundError("❌ Nenhum CSV encontrado no dataset baixado!")
+
+print(f"📊 Encontrados {len(csv_files)} arquivos CSV. Carregando todos...")
+
+dataframes = [pd.read_csv(f) for f in csv_files]
+data = pd.concat(dataframes, ignore_index=True)
+
+print(f"✅ Dataset combinado com {len(data)} linhas no total.")
+print(f"Colunas: {list(data.columns)}")
 
 print(f"✅ Dataset carregado com {len(data)} linhas.")
 print(f"Colunas: {list(data.columns)}")
